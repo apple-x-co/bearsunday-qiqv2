@@ -3,10 +3,7 @@
 ## Basic usage
 
 ```php
-$this->install(new QiqModule(
-    [$this->appMeta->appDir . '/var/qiq/template'],
-    $this->appMeta->appDir . '/var/qiq/template',
-));
+$this->install(new QiqModule([$this->appMeta->appDir . '/var/qiq/template']));
 ```
 
 ※ [see](MyVendor.MyProject/src/Module/HtmlModule.php#L15)
