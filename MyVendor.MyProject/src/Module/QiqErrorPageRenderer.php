@@ -22,6 +22,7 @@ class QiqErrorPageRenderer implements RenderInterface
     ) {
     }
 
+    /** @SuppressWarnings(PHPMD.StaticAccess) */
     public function render(ResourceObject $ro): string
     {
         $template = Template::new($this->templateDir);

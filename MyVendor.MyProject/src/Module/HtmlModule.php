@@ -11,8 +11,8 @@ class HtmlModule extends AbstractAppModule
     protected function configure(): void
     {
         $this->install(new QiqModule(
-            $this->appMeta->appDir . '/var/qiq/template',
             [$this->appMeta->appDir . '/var/qiq/template'],
+            $this->appMeta->appDir . '/var/qiq/template',
         ));
 //        $this->install(new QiqErrorModule());
     }

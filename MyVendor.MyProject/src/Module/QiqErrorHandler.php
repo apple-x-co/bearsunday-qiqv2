@@ -20,8 +20,8 @@ class QiqErrorHandler implements ErrorInterface
 {
     public function __construct(
         private QiqErrorPage $errorPage,
-        private TransferInterface $transfer,
         private LoggerInterface $logger,
+        private TransferInterface $transfer,
     ) {
     }
 
@@ -39,7 +39,7 @@ class QiqErrorHandler implements ErrorInterface
         $this->errorPage->body = [
             'status' => [
                 'code' => $code,
-                'message' => (new Code())->statusText[$code],
+                'message' => (new Code())->statusText[$code] ?? null,
             ],
             'e' => [
                 'code' => $e->getCode(),

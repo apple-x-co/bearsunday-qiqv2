@@ -16,7 +16,9 @@ class QiqErrorPage extends ResourceObject
     public $headers = ['content-type' => 'text/html; charset=utf-8'];
     // phpcs:enable SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
 
-    /** @return list<string> */
+    /**
+     * {@inheritDoc}
+     */
     public function __sleep(): array
     {
         return ['renderer'];
