@@ -11,11 +11,10 @@ use Ray\Di\Di\Named;
 
 class QiqErrorPage extends ResourceObject
 {
+    // phpcs:disable SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     /** @var array<string, string>  */
     public $headers = ['content-type' => 'text/html; charset=utf-8'];
-
-    /** @var RenderInterface|null */
-    protected $renderer;
+    // phpcs:enable SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
 
     /** @return list<string> */
     public function __sleep(): array
@@ -23,7 +22,8 @@ class QiqErrorPage extends ResourceObject
         return ['renderer'];
     }
 
-    #[Inject, Named('error_page')]
+    #[Inject]
+    #[Named('error_page')]
     public function setRenderer(RenderInterface $renderer): ResourceObject
     {
         return parent::setRenderer($renderer);

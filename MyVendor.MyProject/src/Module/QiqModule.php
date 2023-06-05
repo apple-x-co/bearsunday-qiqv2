@@ -16,23 +16,23 @@ use Ray\Di\Scope;
 
 class QiqModule extends AbstractModule
 {
-    /**
-     * @param array<string> $paths
-     */
+    /** @param array<string> $paths */
     public function __construct(
         private readonly string $templateDir,
         private readonly array $paths,
-        private ?AbstractModule $module = null,
+        private AbstractModule|null $module = null,
     ) {
         parent::__construct($this->module);
     }
 
     protected function configure(): void
     {
-        $this->bind(Template::class)->toConstructor(Template::class,
+        $this->bind(Template::class)->toConstructor(
+            Template::class,
             ['paths' => 'qiq_paths', 'extension' => 'qiq_extension'],
         );
-        $this->bind(Catalog::class)->toConstructor(Catalog::class,
+        $this->bind(Catalog::class)->toConstructor(
+            Catalog::class,
             ['paths' => 'qiq_paths', 'extension' => 'qiq_extension'],
         );
         $this->bind(Helpers::class)->to(HtmlHelpers::class);

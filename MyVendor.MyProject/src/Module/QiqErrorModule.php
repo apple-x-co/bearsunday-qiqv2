@@ -12,7 +12,7 @@ class QiqErrorModule extends AbstractModule
 {
     public function __construct(
         private readonly string $errorViewName = 'Error',
-        ?AbstractModule $module = null
+        AbstractModule|null $module = null,
     ) {
         parent::__construct($module);
     }

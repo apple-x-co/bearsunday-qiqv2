@@ -10,6 +10,13 @@ use Qiq\Template;
 use Ray\Aop\WeavedInterface;
 use ReflectionClass;
 
+use function assert;
+use function is_array;
+use function is_string;
+use function str_replace;
+use function strpos;
+use function substr;
+
 class QiqRenderer implements RenderInterface
 {
     private const LENGTH_OF_RESOURCE_DIR = 13;
