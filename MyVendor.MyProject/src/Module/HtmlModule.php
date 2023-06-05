@@ -14,5 +14,6 @@ class HtmlModule extends AbstractAppModule
             $this->appMeta->appDir . '/var/qiq/template',
             [$this->appMeta->appDir . '/var/qiq/template'],
         ));
+//        $this->install(new QiqErrorModule());
     }
 }
