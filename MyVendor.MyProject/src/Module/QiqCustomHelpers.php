@@ -12,9 +12,10 @@ use Qiq\Helper\Html\HtmlHelpers;
 class QiqCustomHelpers extends HtmlHelpers
 {
     public function __construct(
-        #[AppName] private readonly string $appName,
+        #[AppName]
+        private readonly string $appName,
         private readonly DateTimeInterface $dateTime,
-        ContainerInterface $container = null,
+        ContainerInterface|null $container = null,
     ) {
         parent::__construct($container);
     }

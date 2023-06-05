@@ -19,17 +19,16 @@ use function sprintf;
 class QiqErrorHandler implements ErrorInterface
 {
     public function __construct(
-        private QiqErrorPage $errorPage,
-        private LoggerInterface $logger,
-        private TransferInterface $transfer,
+        private readonly QiqErrorPage $errorPage,
+        private readonly LoggerInterface $logger,
+        private readonly TransferInterface $transfer,
     ) {
     }
 
-    public function handle(Throwable $e, Request $request): ErrorInterface
+    public function handle(Throwable $throwable, Request $request): ErrorInterface
     {
-        unset($request);
-        $code = $this->getCode($e);
-        $eStr = (string) $e;
+        $code = $this->getCode($throwable);
+        $eStr = (string) $throwable;
         $logRef = crc32($eStr);
         if ($code >= 500) {
             $this->logger->error(sprintf('logref:%s %s', $logRef, $eStr));
@@ -42,10 +41,11 @@ class QiqErrorHandler implements ErrorInterface
                 'message' => (new Code())->statusText[$code] ?? null,
             ],
             'e' => [
-                'code' => $e->getCode(),
-                'class' => $e::class,
-                'message' => $e->getMessage(),
+                'code' => $throwable->getCode(),
+                'class' => $throwable::class,
+                'message' => $throwable->getMessage(),
             ],
+            'request' => (string) $request,
             'logref' => (string) $logRef,
         ];
 
@@ -57,14 +57,14 @@ class QiqErrorHandler implements ErrorInterface
         ($this->transfer)($this->errorPage, []);
     }
 
-    private function getCode(Throwable $e): int
+    private function getCode(Throwable $throwable): int
     {
-        if ($e instanceof NotFound) {
-            return $e->getCode();
+        if ($throwable instanceof NotFound) {
+            return $throwable->getCode();
         }
 
-        if ($e instanceof BadRequest) {
-            return $e->getCode();
+        if ($throwable instanceof BadRequest) {
+            return $throwable->getCode();
         }
 
         return 503;
