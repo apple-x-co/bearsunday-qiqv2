@@ -29,16 +29,16 @@ class QiqRenderer implements RenderInterface
     public function render(ResourceObject $ro): string
     {
         $template = clone $this->template;
-        $this->setView($template, $ro);
-        assert(is_array($ro->body) || $ro->body === null);
+        $this->setTemplateView($template, $ro);
+        assert($ro->body === null || is_array($ro->body));
         $template->setData($ro->body ?? []);
 
-        $ro->view = ($template)();
+        $ro->view = $template();
 
         return $ro->view;
     }
 
-    private function setView(Template $template, ResourceObject $ro): void
+    private function setTemplateView(Template $template, ResourceObject $ro): void
     {
         $fileName = $this->getReflection($ro)->getFileName();
         assert(is_string($fileName));
