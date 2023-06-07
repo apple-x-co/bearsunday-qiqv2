@@ -25,10 +25,10 @@ class QiqErrorHandler implements ErrorInterface
     ) {
     }
 
-    public function handle(Throwable $throwable, Request $request): ErrorInterface
+    public function handle(Throwable $e, Request $request): ErrorInterface
     {
-        $code = $this->getCode($throwable);
-        $eStr = (string) $throwable;
+        $code = $this->getCode($e);
+        $eStr = (string) $e;
         $logRef = crc32($eStr);
         if ($code >= 500) {
             $this->logger->error(sprintf('logref:%s %s', $logRef, $eStr));
@@ -41,9 +41,9 @@ class QiqErrorHandler implements ErrorInterface
                 'message' => (new Code())->statusText[$code] ?? null,
             ],
             'e' => [
-                'code' => $throwable->getCode(),
-                'class' => $throwable::class,
-                'message' => $throwable->getMessage(),
+                'code' => $e->getCode(),
+                'class' => $e::class,
+                'message' => $e->getMessage(),
             ],
             'request' => (string) $request,
             'logref' => (string) $logRef,
